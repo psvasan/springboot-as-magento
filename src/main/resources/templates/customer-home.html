@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Front Store</title>
+</head>
+<body>
+<h1>Welcome to the <span th:text="${area}">Area</span></h1>
+<p>Logged in User Details (via Principal): <strong><span th:text="${username}">Customer User</span></strong></p>
+<hr/>
+<a href="/process-logout?type=customer">Logout of Frontend Store</a>
+</body>
+</html>

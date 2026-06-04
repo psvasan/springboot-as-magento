@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Welcome to the <span th:text="${area}">Area</span></h1>
+<p>Logged in User Details (via Principal): <strong><span th:text="${username}">Admin User</span></strong></p>
+<hr/>
+<a href="/process-logout?type=admin">Logout of Admin Panel</a>
+</body>
+</html>
