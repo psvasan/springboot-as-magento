@@ -44,9 +44,11 @@ public class AppController {
 
             HttpSession session = request.getSession(true);
             if ("admin".equalsIgnoreCase(loginType)) {
+                // Save context exclusively to the Admin session partition
                 session.setAttribute(MagentoStyleSecurityConfig.ADMIN_KEY, context);
                 return "redirect:/admin/dashboard";
             } else {
+                // Save context exclusively to the Customer session partition
                 session.setAttribute(MagentoStyleSecurityConfig.CUSTOMER_KEY, context);
                 return "redirect:/customer/home";
             }
@@ -55,17 +57,14 @@ public class AppController {
         }
     }
 
-    // NEW MAGENTO-STYLE AREA-SPECIFIC LOGOUT METHOD
     @GetMapping("/process-logout")
     public String processLogout(@RequestParam("type") String type, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if ("admin".equalsIgnoreCase(type)) {
-                // Remove ONLY admin key context
                 session.removeAttribute(MagentoStyleSecurityConfig.ADMIN_KEY);
                 return "redirect:/admin/login?logout";
             } else {
-                // Remove ONLY customer key context
                 session.removeAttribute(MagentoStyleSecurityConfig.CUSTOMER_KEY);
                 return "redirect:/customer/login?logout";
             }
