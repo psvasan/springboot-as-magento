@@ -72,21 +72,21 @@ public class AppController {
         return "redirect:/customer/login";
     }
 
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard(Principal principal, Model model) {
-        if (principal != null) {
-            model.addAttribute("username", principal.getName());
-            model.addAttribute("area", "Magento-Style Admin Panel");
-        }
-        return "admin-dashboard";
-    }
-
-    @GetMapping("/customer/home")
-    public String customerHome(Principal principal, Model model) {
-        if (principal != null) {
-            model.addAttribute("username", principal.getName());
-            model.addAttribute("area", "Customer Frontend Store");
-        }
-        return "customer-home";
-    }
+//    @GetMapping("/admin/dashboard")
+//    public String adminDashboard(Principal principal, Model model) {
+//        if (principal != null) {
+//            model.addAttribute("username", principal.getName());
+//            model.addAttribute("area", "Magento-Style Admin Panel");
+//        }
+//        return "admin-dashboard";
+//    }
+//
+//    @GetMapping("/customer/home")
+//    public String customerHome(Principal principal, Model model) {
+//        if (principal != null) {
+//            model.addAttribute("username", principal.getName());
+//            model.addAttribute("area", "Customer Frontend Store");
+//        }
+//        return "customer-home";
+//    }
 }

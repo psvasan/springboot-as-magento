@@ -1,0 +1,241 @@
+/* ----- RESET & BASE ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Gradient background for a modern, polished look */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+/* Centered card container - fully responsive */
+.login-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* Main form card */
+.login-card {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(0px);
+    border-radius: 2rem;
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 8px 18px rgba(0, 0, 0, 0.1);
+    padding: 2.2rem 2rem 2.5rem 2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Header / Brand area */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    background: linear-gradient(120deg, #1e2b6e, #4c1d95);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+}
+
+.login-header p {
+    color: #5b677b;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+/* Form group styles */
+.input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+/* Input field wrapper (optional for icon) - clean modern design */
+.input-field {
+    display: flex;
+    align-items: center;
+    background: #f1f5f9;
+    border-radius: 1.25rem;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    padding: 0.2rem 1rem;
+}
+
+.input-field:focus-within {
+    background: #ffffff;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* simple icons using unicode / text, no extra dependency */
+.input-icon {
+    font-size: 1.2rem;
+    margin-right: 0.6rem;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.input-field:focus-within .input-icon {
+    color: #7c3aed;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 0.85rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0f172a;
+    font-family: inherit;
+}
+
+.input-field input::placeholder {
+    color: #cbd5e1;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+/* Login button styling */
+.login-btn {
+    width: 100%;
+    background: linear-gradient(95deg, #4f46e5, #7c3aed);
+    border: none;
+    border-radius: 2rem;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 0.5rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 8px 14px -6px rgba(79, 70, 229, 0.35);
+}
+
+.login-btn:hover {
+    background: linear-gradient(95deg, #4338ca, #6d28d9);
+    transform: scale(1.01);
+    box-shadow: 0 12px 20px -8px rgba(79, 70, 229, 0.5);
+}
+
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+/* extra utilities & helper links */
+.form-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #475569;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.form-footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.form-footer a:hover {
+    color: #1e1b4b;
+    text-decoration: underline;
+}
+
+/* simple demo message for feedback (optional JS-free styling) */
+.demo-message {
+    font-size: 0.75rem;
+    text-align: center;
+    margin-top: 1rem;
+    background: #f1f5f9;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: #334155;
+}
+
+/* Responsive touches */
+@media (max-width: 500px) {
+    .login-card {
+        padding: 1.8rem 1.5rem 2rem 1.5rem;
+    }
+    .login-header h1 {
+        font-size: 1.6rem;
+    }
+    .input-field input {
+        padding: 0.75rem 0;
+    }
+    .login-btn {
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* optional small animation for form entrance */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-card {
+    animation: fadeSlideUp 0.5s ease-out;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.logout-message {
+    background: #dcfce7;
+    color: #166534;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+}

@@ -1,13 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>User Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
 <body>
-<h2>Customer Portal Login</h2>
-<form th:action="@{/process-login}" method="post">
-    <input type="hidden" name="loginType" value="customer" />
 
-    <input type="text" name="username" placeholder="Username" required/><br/><br/>
-    <input type="password" name="password" placeholder="Password" required/><br/><br/>
-    <button type="submit">Login to Store</button>
-</form>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Welcome back</h1>
+            <p>Sign in to your account</p>
+        </div>
+
+        <!-- Spring Security Login Form -->
+        <form th:action="@{/process-login}" method="post">
+            <input type="hidden" name="loginType" value="customer" />
+            <!-- Username / Email field -->
+            <div class="input-group">
+                <label for="username">Username or email</label>
+                <div class="input-field">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username"
+                           placeholder="Enter your username"
+                           autocomplete="username" required>
+                </div>
+            </div>
+
+            <!-- Password field -->
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-field">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password"
+                           placeholder="••••••••"
+                           autocomplete="current-password" required>
+                </div>
+            </div>
+
+            <!-- Remember me checkbox (optional but common) -->
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <input type="checkbox" id="remember-me" name="remember-me"
+                       style="width: 18px; height: 18px;">
+                <label for="remember-me" style="font-size: 0.9rem; color: #334155;">
+                    Remember me
+                </label>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">Login →</button>
+
+            <!-- Error message display -->
+            <div th:if="${param.error}" class="error-message">
+                Invalid username or password. Please try again.
+            </div>
+
+            <div th:if="${param.logout}" class="logout-message">
+                You have been logged out successfully.
+            </div>
+
+            <!-- Additional links -->
+            <div class="form-footer">
+                <a th:href="@{/forgot-password}">Forgot password?</a> &nbsp;•&nbsp;
+                <a th:href="@{/register}">Create account</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
 </body>
 </html>

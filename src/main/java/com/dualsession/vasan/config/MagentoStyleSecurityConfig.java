@@ -54,10 +54,11 @@ public class MagentoStyleSecurityConfig {
         http
                 .securityContext(context -> context.securityContextRepository(magentoSessionRepository()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/login", "/customer/login", "/error", "/process-login", "/process-logout").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/customer/**").hasRole("USER")
-                        .anyRequest().authenticated()
+//                        .requestMatchers("/admin/login", "/customer/login", "/error", "/process-login", "/process-logout").permitAll()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/customer/**").hasRole("USER")
+//                        .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable())
@@ -130,5 +131,4 @@ public class MagentoStyleSecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // (UserDetailsService bean has been cleanly stripped away from this context file)
 }
