@@ -24,10 +24,10 @@ public class AppController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/admin/login")
-    public String adminLogin() { return "admin-login"; }
+    public String adminLogin() { return "admin/login"; }
 
     @GetMapping("/customer/login")
-    public String customerLogin() { return "customer-login"; }
+    public String customerLogin() { return "frontend/customer/login"; }
 
     @PostMapping("/process-login")
     public String processLogin(

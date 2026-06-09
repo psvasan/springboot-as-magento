@@ -13,11 +13,11 @@ public class CustomerAccountController {
     @GetMapping("/customer/home")
     public String customerHome(Principal principal, Model model) {
         model.addAttribute("username", principal.getName());
-        return "customer-home";
+        return "frontend/customer/home";
     }
 
     @GetMapping("/customer/orders")
     public String orderHistory() {
-        return "customer-orders"; // Automatically protected! No config changes needed.
+        return "frontend/customer/orders"; // Automatically protected! No config changes needed.
     }
 }

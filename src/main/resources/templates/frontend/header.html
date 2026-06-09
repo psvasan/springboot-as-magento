@@ -1,0 +1,43 @@
+<header class="site-header" th:fragment="header">
+    <div class="header-container">
+        <!-- LEFT GROUP: Logo + Desktop Nav + Hamburger (always on left) -->
+        <div class="nav-left-group">
+            <div class="logo-area">
+                <i class="fas fa-cube logo-icon"></i>
+                <span class="logo-text">FrontFlow</span>
+                <span class="logo-badge">v2</span>
+            </div>
+            <!-- Desktop Navigation (always left, next to logo) -->
+            <nav class="main-nav">
+                <ul th:replace="~{frontend/menu :: menu}">
+
+                </ul>
+            </nav>
+            <!-- Hamburger button (visible only on mobile) -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <!-- Right side actions: Search + Language + User (stay as is) -->
+        <div class="header-actions">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search...">
+            </div>
+            <div class="lang-switch" id="langSwitcher">
+                <i class="fas fa-globe"></i>
+                <span id="currentLangLabel">EN</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
+            </div>
+            <div class="user-area" id="userArea">
+                <a href="#" class="login-link" id="loginBtnTrigger"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <div class="user-greeting hidden" id="loggedUserDiv">
+                    <div class="user-avatar" id="userAvatar">AM</div>
+                    <span id="userNameDisplay">Alex Morgan</span>
+                    <i class="fas fa-sign-out-alt logout-icon" id="logoutBtn"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

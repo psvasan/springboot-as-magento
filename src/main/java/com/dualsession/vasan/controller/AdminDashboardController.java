@@ -13,11 +13,11 @@ public class AdminDashboardController {
     @GetMapping("/admin/dashboard")
     public String dashboard(Principal principal, Model model) {
         model.addAttribute("username", principal.getName());
-        return "admin-dashboard";
+        return "admin/dashboard";
     }
 
     @GetMapping("/admin/reports")
     public String salesReports() {
-        return "admin-reports"; // Automatically protected! No config changes needed.
+        return "admin/reports"; // Automatically protected! No config changes needed.
     }
 }
