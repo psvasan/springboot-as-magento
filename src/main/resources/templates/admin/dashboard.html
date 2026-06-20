@@ -13,25 +13,7 @@
 <body>
 <div class="admin-wrapper">
     <!-- HEADER: Logo left, user info + logout right -->
-    <header class="admin-header">
-        <div class="header-container">
-            <div class="logo-area">
-                <i class="fas fa-building-columns logo-icon"></i>
-                <span class="logo-text">AdminHub</span>
-                <span class="admin-badge">CMS</span>
-            </div>
-            <div class="user-controls" id="userControlsArea">
-                <!-- dynamic user info: shows logged user name and logout link -->
-                <div class="user-info" id="userInfoBlock">
-                    <div class="user-avatar" id="avatarInitials">JD</div>
-                    <span class="user-name" id="displayUserName">John Doe</span>
-                </div>
-                <button class="logout-link" id="logoutButtonAdmin">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
-        </div>
-    </header>
+    <header class="admin-header" th:replace="~{admin/header :: header}"></header>
 
     <!-- MAIN: 90% container, sidebar 20% width (brown background) -->
     <div class="main-layout">
@@ -106,99 +88,8 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="admin-footer">
-        <div class="footer-container">
-            <div class="footer-copyright">
-                © 2025 AdminHub — Secure Admin Console
-            </div>
-            <div class="footer-links">
-                <a href="#">Documentation</a>
-                <a href="#">Support</a>
-                <a href="#">Privacy</a>
-            </div>
-        </div>
-    </footer>
-    <script>
-        (function() {
-            // For demonstration, we have a pre-set admin user "Alex Rivera"
-            // You can simulate logout and change the displayed username.
-            const userNameSpan = document.getElementById('displayUserName');
-            const greetingSpan = document.getElementById('greetingUserName');
-            const avatarDiv = document.getElementById('avatarInitials');
-            const logoutBtn = document.getElementById('logoutButtonAdmin');
-
-            // current admin state (simulated)
-            let currentAdmin = {
-                name: 'Alex Rivera',
-                initials: 'AR'
-            };
-
-            function updateUserInterface() {
-                if (userNameSpan) userNameSpan.innerText = currentAdmin.name;
-                if (greetingSpan) greetingSpan.innerText = currentAdmin.name.split(' ')[0];
-                if (avatarDiv) avatarDiv.innerText = currentAdmin.initials;
-            }
-
-            // logout action: just for demo, resets to default admin or shows login screen simulation
-            // In a real app, you'd redirect to login. Here we toggle to "Guest" mode as fallback.
-            function performLogout() {
-                // demo: change user to "Guest / Login" but header expects logged in admin context.
-                // For layout demo, we simply show a notification and reset to default admin (logout simulation)
-                // but since requirement is header with logged username and logout link, we simulate logged out -> relogin demo.
-                // Instead we can show an alert and revert to a demo state (reset to default after confirm)
-                if(confirm("⚠️ Logout simulation: You will be redirected to login page in real app. Continue?")) {
-                    // mimic logged-out state: change user info to "Guest" (but keep admin-style)
-                    currentAdmin = { name: 'Guest User', initials: 'GU' };
-                    updateUserInterface();
-                    // change logout button text or behavior
-                    alert("Logged out. In a real system, you'd be redirected to the login page.");
-                    // optional: revert back after 2 sec to show admin again (for demo purposes only)
-                    setTimeout(() => {
-                        currentAdmin = { name: 'Alex Rivera', initials: 'AR' };
-                        updateUserInterface();
-                    }, 2000);
-                }
-            }
-
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    performLogout();
-                });
-            }
-
-            // sidebar active state change (just for illustration)
-            const navLinks = document.querySelectorAll('.sidebar-nav a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    // remove active class from all li parent
-                    document.querySelectorAll('.sidebar-nav li').forEach(li => li.classList.remove('active'));
-                    const parentLi = link.closest('li');
-                    if(parentLi) parentLi.classList.add('active');
-                    // update main content header text (just for demo)
-                    const headerTitle = document.querySelector('.content-header h1');
-                    const linkText = link.innerText.trim();
-                    if(headerTitle && linkText) {
-                        headerTitle.innerText = linkText;
-                        const descParagraph = document.querySelector('.content-header p');
-                        if(descParagraph) descParagraph.innerHTML = `Viewing ${linkText} section — admin module.`;
-                        setTimeout(() => {
-                            if(headerTitle && descParagraph) {
-                                headerTitle.innerText = "Admin Dashboard";
-                                descParagraph.innerHTML = `Welcome back, <span id="greetingUserName">${currentAdmin.name.split(' ')[0]}</span> — manage your platform from here.`;
-                            }
-                        }, 1800);
-                    }
-                    e.preventDefault();
-                });
-            });
-
-            updateUserInterface();
-
-            // additional style to ensure sidebar brown background persists
-            console.log("Admin page ready — brown sidebar (20% width), header with logo left & user right, main layout 90% container.");
-        })();
-    </script>
+    <footer class="admin-footer" th:replace="~{admin/footer :: footer}"></footer>
+    <div th:replace="~{admin/script :: script}"></div>
 </div>
 
 

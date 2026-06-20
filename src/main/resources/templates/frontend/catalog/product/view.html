@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{frontend/head :: head(~{::title},~{::link})}">
+    <title>Product Page</title>
+    <link rel="stylesheet" th:href="@{/css/frontend/pdp.css}">
+</head>
+<body>
+<div class="app-wrapper">
+    <!-- ===== HEADER ===== -->
+    <div th:replace="~{frontend/header :: header}"></div>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav-overlay" id="mobileMenuOverlay">
+        <div class="mobile-nav-header">
+            <span class="mobile-logo">FrontFlow</span>
+            <button class="close-mobile-menu" id="closeMobileMenu"><i class="fas fa-times"></i></button>
+        </div>
+        <ul th:replace="~{frontend/menu :: mobile_menu}">
+
+        </ul>
+    </div>
+    <div class="overlay-backdrop" id="backdrop"></div>
+
+    <!-- ===== MAIN: NO SIDEBAR - FULL WIDTH PRODUCT PAGE ===== -->
+    <div class="main-layout">
+        <main class="content-area">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <span> / </span>
+                <a href="#">Products</a>
+                <span> / </span>
+                <span>Essential Cashmere Sweater</span>
+            </div>
+
+            <!-- Product Grid - Magento 2 Style -->
+            <div class="product-grid">
+                <!-- LEFT: Gallery -->
+                <div class="gallery-wrapper">
+                    <div class="main-image-container" id="imageContainer">
+                        <img id="mainProductImage" src="https://placecats.com/800/800?random=1" alt="Product" />
+                        <div class="img-zoom-lens" id="zoomLens"></div>
+                        <div class="img-zoom-result" id="zoomResult"></div>
+                    </div>
+
+                    <div class="thumbnail-strip" id="thumbnailStrip">
+                        <div class="thumbnail-item active" data-image="https://placecats.com/800/800?random=1" data-zoom="https://placecats.com/1200/1200?random=1">
+                            <img src="https://placecats.com/120/120?random=1" alt="thumb 1" />
+                        </div>
+                        <div class="thumbnail-item" data-image="https://placecats.com/800/800?random=2" data-zoom="https://placecats.com/1200/1200?random=2">
+                            <img src="https://placecats.com/120/120?random=2" alt="thumb 2" />
+                        </div>
+                        <div class="thumbnail-item" data-image="https://placecats.com/800/800?random=3" data-zoom="https://placecats.com/1200/1200?random=3">
+                            <img src="https://placecats.com/120/120?random=3" alt="thumb 3" />
+                        </div>
+                        <div class="thumbnail-item" data-image="https://placecats.com/800/800?random=4" data-zoom="https://placecats.com/1200/1200?random=4">
+                            <img src="https://placecats.com/120/120?random=4" alt="thumb 4" />
+                        </div>
+                        <div class="thumbnail-item" data-image="https://placecats.com/800/800?random=5" data-zoom="https://placecats.com/1200/1200?random=5">
+                            <img src="https://placecats.com/120/120?random=5" alt="thumb 5" />
+                        </div>
+                        <div class="thumbnail-item" data-image="https://placecats.com/800/800?random=6" data-zoom="https://placecats.com/1200/1200?random=6">
+                            <img src="https://placecats.com/120/120?random=6" alt="thumb 6" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Product Details -->
+                <div class="product-info">
+                    <div class="product-brand">LUXE COLLECTION</div>
+
+                    <h1 class="product-name" th:text="${product.getName()}">Essential Cashmere Sweater</h1>
+
+                    <div class="product-price">
+                        <span class="price-current">$89.00</span>
+                        <span class="price-old">$129.00</span>
+                        <span class="price-save">Save 31%</span>
+                    </div>
+
+                    <div class="product-rating">
+                        <span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                        <span class="reviews">(142 reviews)</span>
+                    </div>
+
+                    <div class="product-description">
+                        <p th:text="${product.getDescription()}">product desc</p>
+                        <p>Premium cashmere blend with a soft, timeless finish. Lightweight yet warm — perfect for the modern wardrobe.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> 100% Italian cashmere</li>
+                            <li><i class="fas fa-check"></i> Classic crew neck</li>
+                            <li><i class="fas fa-check"></i> Machine washable</li>
+                        </ul>
+                    </div>
+
+                    <!-- Magento 2 style options (Color & Size) -->
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label>Color</label>
+                            <div class="option-values">
+                                <div class="color-swatch green active" data-color="green" title="Green"></div>
+                                <div class="color-swatch navy" data-color="navy" title="Navy"></div>
+                                <div class="color-swatch brown" data-color="brown" title="Brown"></div>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <label>Size</label>
+                            <div class="option-values">
+                                <button class="option-btn active">S</button>
+                                <button class="option-btn">M</button>
+                                <button class="option-btn">L</button>
+                                <button class="option-btn">XL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <div class="cart-actions">
+                        <div class="qty-box">
+                            <button id="qtyMinus">−</button>
+                            <input type="number" id="qtyInput" value="1" min="1" max="99" />
+                            <button id="qtyPlus">+</button>
+                        </div>
+                        <button class="btn-add-to-cart" id="addToCartBtn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+
+                    <div class="product-meta">
+                        <span><i class="fas fa-truck"></i> Free shipping</span>
+                        <span><i class="fas fa-undo-alt"></i> 30-day returns</span>
+                        <span><i class="fas fa-shield-alt"></i> 2-year warranty</span>
+                        <span><i class="fas fa-tag"></i> SKU: #CS-2025-001</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer" th:replace="~{frontend/footer :: footer}"></footer>
+
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    (function() {
+        'use strict';
+
+        // ---------- MOBILE MENU ----------
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenuOverlay');
+        const closeBtn = document.getElementById('closeMobileMenu');
+        const backdrop = document.getElementById('backdrop');
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        if(hamburger) hamburger.addEventListener('click', openMenu);
+        if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+        if(backdrop) backdrop.addEventListener('click', closeMenu);
+
+        // ---------- LOGIN / LOGOUT ----------
+        const loginBtn = document.getElementById('loginBtnTrigger');
+        const loggedDiv = document.getElementById('loggedUserDiv');
+        const logoutBtnElem = document.getElementById('logoutBtn');
+        const userNameSpan = document.getElementById('userNameDisplay');
+        let isLoggedIn = false;
+
+        function updateAuthUI() {
+            if (isLoggedIn) {
+                loginBtn.classList.add('hidden');
+                loggedDiv.classList.remove('hidden');
+                userNameSpan.innerText = 'John Doe';
+            } else {
+                loginBtn.classList.remove('hidden');
+                loggedDiv.classList.add('hidden');
+            }
+        }
+        if(loginBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                isLoggedIn = true;
+                updateAuthUI();
+                alert('✅ Logged in as John Doe (demo)');
+            });
+        }
+        if(logoutBtnElem) {
+            logoutBtnElem.addEventListener('click', (e) => {
+                e.preventDefault();
+                isLoggedIn = false;
+                updateAuthUI();
+                alert('👋 Logged out (demo)');
+            });
+        }
+        updateAuthUI();
+
+        // ---------- LANGUAGE SWITCHER ----------
+        const langSwitcher = document.getElementById('langSwitcher');
+        const langLabel = document.getElementById('currentLangLabel');
+        let langIdx = 0;
+        const langs = ['EN', 'ES', 'FR', 'DE'];
+        if(langSwitcher) {
+            langSwitcher.addEventListener('click', () => {
+                langIdx = (langIdx + 1) % langs.length;
+                langLabel.innerText = langs[langIdx];
+                const toast = document.createElement('div');
+                toast.innerText = `Language: ${langs[langIdx]}`;
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.right = '20px';
+                toast.style.background = '#0f172a';
+                toast.style.color = 'white';
+                toast.style.padding = '0.4rem 1rem';
+                toast.style.borderRadius = '30px';
+                toast.style.fontSize = '0.8rem';
+                toast.style.zIndex = '999';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 1500);
+            });
+        }
+
+        // ---------- THUMBNAILS & MAIN IMAGE ----------
+        const mainImg = document.getElementById('mainProductImage');
+        const thumbItems = document.querySelectorAll('.thumbnail-item');
+        const container = document.getElementById('imageContainer');
+        const zoomLens = document.getElementById('zoomLens');
+        const zoomResult = document.getElementById('zoomResult');
+        const zoomResultWrapper = document.getElementById('zoomResultWrapper');
+
+        // Set zoom background image
+        function setZoomBackground(imageUrl) {
+            zoomResult.style.backgroundImage = `url('${imageUrl}')`;
+            zoomResult.style.backgroundSize = '300%';
+        }
+
+        function setMainImage(imageUrl, zoomUrl) {
+            mainImg.src = imageUrl;
+            setZoomBackground(zoomUrl || imageUrl);
+        }
+
+        function activateThumb(thumbElement) {
+            thumbItems.forEach(el => el.classList.remove('active'));
+            thumbElement.classList.add('active');
+            const imageUrl = thumbElement.dataset.image;
+            const zoomUrl = thumbElement.dataset.zoom || imageUrl;
+            if (imageUrl) {
+                setMainImage(imageUrl, zoomUrl);
+            }
+        }
+
+        thumbItems.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                activateThumb(this);
+            });
+        });
+
+        // Set initial image
+        const firstActive = document.querySelector('.thumbnail-item.active') || thumbItems[0];
+        if (firstActive) {
+            const img = firstActive.dataset.image;
+            const zoom = firstActive.dataset.zoom || img;
+            if (img) setMainImage(img, zoom);
+        }
+
+        // ---------- ZOOM FUNCTIONALITY (FIXED) ----------
+        let isZooming = false;
+
+        function updateZoom(e) {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Calculate lens position
+            const lensSize = 150;
+            let lensX = x - lensSize / 2;
+            let lensY = y - lensSize / 2;
+
+            // Keep lens within bounds
+            lensX = Math.max(0, Math.min(lensX, rect.width - lensSize));
+            lensY = Math.max(0, Math.min(lensY, rect.height - lensSize));
+
+            zoomLens.style.left = lensX + 'px';
+            zoomLens.style.top = lensY + 'px';
+
+            // Calculate background position for zoom result
+            const percentX = (x / rect.width) * 100;
+            const percentY = (y / rect.height) * 100;
+
+            zoomResult.style.backgroundPosition = `${percentX}% ${percentY}%`;
+        }
+
+        // Mouse enter - enable zoom
+        container.addEventListener('mouseenter', function(e) {
+            if (window.innerWidth >= 768) {
+                isZooming = true;
+                container.classList.add('zooming');
+                zoomLens.style.display = 'block';
+                zoomResultWrapper.classList.add('active');
+                updateZoom(e);
+            }
+        });
+
+        // Mouse leave - disable zoom
+        container.addEventListener('mouseleave', function() {
+            isZooming = false;
+            container.classList.remove('zooming');
+            zoomLens.style.display = 'none';
+            zoomResultWrapper.classList.remove('active');
+        });
+
+        // Mouse move - update zoom
+        container.addEventListener('mousemove', function(e) {
+            if (isZooming && window.innerWidth >= 768) {
+                updateZoom(e);
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 768) {
+                container.classList.remove('zooming');
+                zoomLens.style.display = 'none';
+                zoomResultWrapper.classList.remove('active');
+                isZooming = false;
+            }
+        });
+
+        // ---------- QUANTITY ----------
+        const qtyInput = document.getElementById('qtyInput');
+        const qtyMinus = document.getElementById('qtyMinus');
+        const qtyPlus = document.getElementById('qtyPlus');
+
+        function updateQty(val) {
+            let current = parseInt(qtyInput.value, 10) || 1;
+            let newVal = current + val;
+            if (newVal < 1) newVal = 1;
+            if (newVal > 99) newVal = 99;
+            qtyInput.value = newVal;
+        }
+        if (qtyMinus) qtyMinus.addEventListener('click', () => updateQty(-1));
+        if (qtyPlus) qtyPlus.addEventListener('click', () => updateQty(1));
+        if (qtyInput) {
+            qtyInput.addEventListener('change', function() {
+                let val = parseInt(this.value, 10);
+                if (isNaN(val) || val < 1) this.value = 1;
+                if (val > 99) this.value = 99;
+            });
+        }
+
+        // ---------- ADD TO CART ----------
+        const addBtn = document.getElementById('addToCartBtn');
+        if (addBtn) {
+            addBtn.addEventListener('click', function() {
+                const qty = parseInt(qtyInput.value, 10) || 1;
+                alert(`🛒 Added ${qty} item(s) to your cart. (demo)`);
+            });
+        }
+
+        // ---------- OPTION SELECTORS ----------
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        colorSwatches.forEach(swatch => {
+            swatch.addEventListener('click', function() {
+                colorSwatches.forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const sizeBtns = document.querySelectorAll('.option-btn');
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.closest('.option-values');
+                parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ---------- SEARCH ----------
+        const searchInput = document.querySelector('.search-input');
+        if(searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    alert(`🔍 Searching for: "${searchInput.value}"`);
+                }
+            });
+        }
+
+        console.log('✅ Product page with working zoom functionality loaded successfully!');
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<div th:fragment="script" >
+    <script>
+        (function() {
+            // Mobile menu elements
+            const hamburger = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenuOverlay');
+            const closeBtn = document.getElementById('closeMobileMenu');
+            const backdrop = document.getElementById('backdrop');
+
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            if(hamburger) hamburger.addEventListener('click', openMenu);
+            if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+            if(backdrop) backdrop.addEventListener('click', closeMenu);
+
+            // login/logout simulation
+            const loginBtn = document.getElementById('loginBtnTrigger');
+            const loggedDiv = document.getElementById('loggedUserDiv');
+            const logoutBtnElem = document.getElementById('logoutBtn');
+            let isLoggedIn = false;
+            function updateAuthUI() {
+                if (isLoggedIn) {
+                    loginBtn.classList.add('hidden');
+                    loggedDiv.classList.remove('hidden');
+                } else {
+                    loginBtn.classList.remove('hidden');
+                    loggedDiv.classList.add('hidden');
+                }
+            }
+            if(loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    isLoggedIn = true;
+                    updateAuthUI();
+                    const desc = document.querySelector('.page-description');
+                    if(desc) {
+                        desc.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Logged in as Alex Morgan.';
+                        setTimeout(() => { if(desc) desc.innerHTML = '<i class="fas fa-arrow-right"></i> Explore features, manage team, and track progress.'; }, 2000);
+                    }
+                });
+            }
+            if(logoutBtnElem) {
+                logoutBtnElem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    isLoggedIn = false;
+                    updateAuthUI();
+                    const desc = document.querySelector('.page-description');
+                    if(desc) { desc.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logged out.'; setTimeout(() => { if(desc) desc.innerHTML = '<i class="fas fa-arrow-right"></i> Explore features, manage team, and track progress.'; }, 1500); }
+                });
+            }
+
+            // language switcher
+            const langSwitcher = document.getElementById('langSwitcher');
+            const langLabel = document.getElementById('currentLangLabel');
+            let langIdx = 0;
+            const langs = ['EN', 'ES', 'FR'];
+            if(langSwitcher) {
+                langSwitcher.addEventListener('click', () => {
+                    langIdx = (langIdx+1)%langs.length;
+                    langLabel.innerText = langs[langIdx];
+                    const searchBox = document.querySelector('.search-input');
+                    if(searchBox) {
+                        if(langs[langIdx] === 'ES') searchBox.placeholder = "Buscar...";
+                        else if(langs[langIdx] === 'FR') searchBox.placeholder = "Rechercher...";
+                        else searchBox.placeholder = "Search...";
+                    }
+                    const toast = document.createElement('div');
+                    toast.innerText = `Language: ${langs[langIdx]}`;
+                    toast.style.position = 'fixed'; toast.style.bottom = '20px'; toast.style.right = '20px';
+                    toast.style.background = '#0f172a'; toast.style.color = 'white'; toast.style.padding = '0.4rem 1rem';
+                    toast.style.borderRadius = '30px'; toast.style.fontSize = '0.8rem'; toast.style.zIndex = '999';
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 1500);
+                });
+            }
+
+            // Sidebar active highlight
+            const sideLinks = document.querySelectorAll('.sidebar-menu a');
+            sideLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
+                    const parentLi = link.closest('li');
+                    if(parentLi) parentLi.classList.add('active');
+                    const titleElem = document.querySelector('.page-title');
+                    const linkText = link.innerText.trim();
+                    if(titleElem && linkText) {
+                        titleElem.innerText = linkText;
+                        const descDiv = document.querySelector('.page-description');
+                        if(descDiv) descDiv.innerHTML = `<i class="fas fa-arrow-right"></i> Viewing ${linkText} section.`;
+                        setTimeout(() => {
+                            if(descDiv && descDiv.innerHTML.includes('Viewing')) {
+                                descDiv.innerHTML = '<i class="fas fa-arrow-right"></i> Explore features, manage team, and track progress.';
+                                if(titleElem) titleElem.innerText = "Welcome to your workspace";
+                            }
+                        }, 1700);
+                    }
+                    e.preventDefault();
+                });
+            });
+            updateAuthUI();
+
+            // search demo
+            const searchInput = document.querySelector('.search-input');
+            if(searchInput) searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') alert(`Search: "${searchInput.value}"`); });
+        })();
+    </script>
+</div>

@@ -31,10 +31,11 @@
                 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
             </div>
             <div class="user-area" id="userArea">
-                <a href="#" class="login-link" id="loginBtnTrigger"><i class="fas fa-sign-in-alt"></i> Login</a>
-                <div class="user-greeting hidden" id="loggedUserDiv">
+
+                <a href="/customer/login" class="login-link" id="loginBtnTrigger" th:unless="${username != null and !#strings.isEmpty(username)}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <div class="user-greeting" id="loggedUserDiv" th:if="${username != null and !#strings.isEmpty(username)}">
                     <div class="user-avatar" id="userAvatar">AM</div>
-                    <span id="userNameDisplay">Alex Morgan</span>
+                    <span id="userNameDisplay" th:text="${username}" >Alex Morgan</span>
                     <i class="fas fa-sign-out-alt logout-icon" id="logoutBtn"></i>
                 </div>
             </div>
