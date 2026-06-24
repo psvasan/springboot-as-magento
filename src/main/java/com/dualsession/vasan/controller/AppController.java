@@ -32,13 +32,6 @@ public class AppController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/admin/login")
-    public String adminLogin() { return "admin/login"; }
-
-    @GetMapping("/customer/login")
-    public String customerLogin() {
-        return "frontend/customer/login";
-    }
 
     @PostMapping("/process-login")
     public String processLogin(
@@ -114,21 +107,5 @@ public class AppController {
         }
     }
 
-//    @GetMapping("/admin/dashboard")
-//    public String adminDashboard(Principal principal, Model model) {
-//        if (principal != null) {
-//            model.addAttribute("username", principal.getName());
-//            model.addAttribute("area", "Magento-Style Admin Panel");
-//        }
-//        return "admin-dashboard";
-//    }
-//
-//    @GetMapping("/customer/home")
-//    public String customerHome(Principal principal, Model model) {
-//        if (principal != null) {
-//            model.addAttribute("username", principal.getName());
-//            model.addAttribute("area", "Customer Frontend Store");
-//        }
-//        return "customer-home";
-//    }
+
 }

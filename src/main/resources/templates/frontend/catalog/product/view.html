@@ -128,7 +128,10 @@
                         <span><i class="fas fa-truck"></i> Free shipping</span>
                         <span><i class="fas fa-undo-alt"></i> 30-day returns</span>
                         <span><i class="fas fa-shield-alt"></i> 2-year warranty</span>
-                        <span><i class="fas fa-tag"></i> SKU: #CS-2025-001</span>
+                        <span>
+                            <i class="fas fa-tag"></i> SKU: #<span th:text="${product.sku} ?: 'N/A'">CS-2025-001</span>
+                        </span>
+
                     </div>
                 </div>
             </div>

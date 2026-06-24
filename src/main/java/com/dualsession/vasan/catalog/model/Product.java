@@ -1,7 +1,7 @@
 package com.dualsession.vasan.catalog.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.Category;
+
 
 import java.math.BigDecimal;
 

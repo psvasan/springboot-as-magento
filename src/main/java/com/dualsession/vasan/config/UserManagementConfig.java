@@ -1,22 +1,26 @@
 package com.dualsession.vasan.config;
 
+import com.dualsession.vasan.user.service.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class UserManagementConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+	  public BCryptPasswordEncoder passwordEncoder() {
+		  return new BCryptPasswordEncoder();
+	  }
 
+/**
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         UserDetails admin = User.builder()
@@ -33,4 +37,18 @@ public class UserManagementConfig {
 
         return new InMemoryUserDetailsManager(admin, customer);
     }
+    */
+    @Bean
+	  public UserDetailsService userDetailsService() {
+		  return new AppUserDetailsService();
+	  }
+	  
+	  @Bean
+	  public DaoAuthenticationProvider authenticationProvider() {
+		  DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
+
+		  authProvider.setPasswordEncoder(passwordEncoder());
+
+		  return authProvider;
+	  }
 }
