@@ -1,4 +1,4 @@
-package com.dualsession.vasan.controller;
+package com.dualsession.vasan.app.controller;
 
 import com.dualsession.vasan.config.JwtTokenUtil;
 import com.dualsession.vasan.config.MagentoStyleSecurityConfig;
@@ -14,13 +14,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
+
 import java.util.Map;
 
 @Controller

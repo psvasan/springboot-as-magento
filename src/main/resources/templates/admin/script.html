@@ -1,5 +1,6 @@
 <div th:fragment="script" >
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         (function() {
             // For demonstration, we have a pre-set admin user "Alex Rivera"
             // You can simulate logout and change the displayed username.
@@ -10,8 +11,8 @@
 
             // current admin state (simulated)
             let currentAdmin = {
-                name: 'Alex Rivera',
-                initials: 'AR'
+                name: /*[[${username}]]*/ 'Guest',
+                initials: 'AU'
             };
 
             function updateUserInterface() {
@@ -23,21 +24,12 @@
             // logout action: just for demo, resets to default admin or shows login screen simulation
             // In a real app, you'd redirect to login. Here we toggle to "Guest" mode as fallback.
             function performLogout() {
-                // demo: change user to "Guest / Login" but header expects logged in admin context.
-                // For layout demo, we simply show a notification and reset to default admin (logout simulation)
-                // but since requirement is header with logged username and logout link, we simulate logged out -> relogin demo.
-                // Instead we can show an alert and revert to a demo state (reset to default after confirm)
-                if(confirm("⚠️ Logout simulation: You will be redirected to login page in real app. Continue?")) {
+
+                if(confirm("⚠️ You will be redirected to login page. Continue?")) {
                     // mimic logged-out state: change user info to "Guest" (but keep admin-style)
                     currentAdmin = { name: 'Guest User', initials: 'GU' };
                     updateUserInterface();
-                    // change logout button text or behavior
-                    alert("Logged out. In a real system, you'd be redirected to the login page.");
-                    // optional: revert back after 2 sec to show admin again (for demo purposes only)
-                    setTimeout(() => {
-                        currentAdmin = { name: 'Alex Rivera', initials: 'AR' };
-                        updateUserInterface();
-                    }, 2000);
+                    window.location.href = '/process-logout?type=admin';
                 }
             }
 
@@ -79,5 +71,6 @@
             // additional style to ensure sidebar brown background persists
             console.log("Admin page ready — brown sidebar (20% width), header with logo left & user right, main layout 90% container.");
         })();
+        /*]]>*/
     </script>
 </div>

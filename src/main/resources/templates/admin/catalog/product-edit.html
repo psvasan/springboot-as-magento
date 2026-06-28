@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Product View</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin/main.css}">
+</head>
+<body>
+<div class="admin-wrapper">
+    <!-- HEADER: Logo left, user info + logout right -->
+    <header class="admin-header" th:replace="~{admin/header :: header}"></header>
+
+    <!-- MAIN: 90% container, sidebar 20% width (brown background) -->
+    <div class="main-layout">
+        <!-- SIDEBAR with brown background + navigation -->
+        <aside class="admin-sidebar" th:replace="~{admin/aside :: aside}"></aside>
+
+        <!-- MAIN CONTENT (flex:1 = remaining 80% width) -->
+        <main class="admin-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1><i class="fas fa-plus-circle" style="color: #8b5a2b;"></i> Add New Product</h1>
+                    <div class="subtitle">Fill in the product details below to create a new product listing</div>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-secondary" onclick="window.location.href='#'">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn btn-primary" onclick="saveProduct()">
+                        <i class="fas fa-save"></i> Save Draft
+                    </button>
+                </div>
+            </div>
+            <!-- Alert Messages -->
+            <div id="alertMessage" class="alert">
+                <i class="fas fa-check-circle"></i>
+                <span id="alertText">Product saved successfully!</span>
+            </div>
+            <!-- Product Form -->
+            <form id="productForm" class="product-form" onsubmit="return false;">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-info-circle"></i> Basic Information
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name <span class="required">*</span></label>
+                            <input type="text" id="productName" class="form-control" placeholder="Enter product name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSku">SKU <span class="required">*</span></label>
+                            <input type="text" id="productSku" class="form-control" placeholder="e.g., PRD-001" required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing & Stock -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-dollar-sign"></i> Pricing & Stock
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Price <span class="required">*</span></label>
+                            <input type="number" id="productPrice" class="form-control" placeholder="0.00" step="0.01" min="0" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="productComparePrice">Compare at Price</label>
+                            <input type="number" id="productComparePrice" class="form-control" placeholder="0.00" step="0.01" min="0" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCost">Cost per item</label>
+                            <input type="number" id="productCost" class="form-control" placeholder="0.00" step="0.01" min="0" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productQuantity">Quantity <span class="required">*</span></label>
+                            <input type="number" id="productQuantity" class="form-control" placeholder="0" min="0" required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories & Attributes -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-tags"></i> Categories & Attributes
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">Category <span class="required">*</span></label>
+                            <select id="productCategory" class="form-control" required>
+                                <option value="">Select category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="books">Books</option>
+                                <option value="home">Home & Garden</option>
+                                <option value="sports">Sports</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productBrand">Brand</label>
+                            <input type="text" id="productBrand" class="form-control" placeholder="Enter brand name" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productStatus">Status</label>
+                            <select id="productStatus" class="form-control">
+                                <option value="draft">Draft</option>
+                                <option value="published" selected>Published</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productTags">Tags</label>
+                            <input type="text" id="productTags" class="form-control" placeholder="e.g., new, sale, featured" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-align-left"></i> Description
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="productDescription">Product Description <span class="required">*</span></label>
+                        <textarea id="productDescription" class="form-control" rows="5" placeholder="Enter detailed product description..." required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="productShortDesc">Short Description</label>
+                        <textarea id="productShortDesc" class="form-control" rows="2" placeholder="Brief description for listings..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Images -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-images"></i> Product Images
+                    </div>
+                    <div class="form-group full-width">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p><strong>Click to upload images</strong></p>
+                            <p class="hint">PNG, JPG, WEBP up to 5MB each</p>
+                            <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" />
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-success" onclick="saveProduct()">
+                        <i class="fas fa-check"></i> Publish Product
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure?')) { resetForm(); }">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="admin-footer" th:replace="~{admin/footer :: footer}"></footer>
+    <div th:replace="~{admin/script :: script}"></div>
+</div>
+
+
+
+</body>
+</html>

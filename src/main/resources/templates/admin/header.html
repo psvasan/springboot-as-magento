@@ -1,17 +1,37 @@
-<header class="admin-header" th:fragment="header">
+<!--<header class="admin-header" th:fragment="header">-->
+<!--  <div class="header-container">-->
+<!--    <div class="logo-area">-->
+<!--      <i class="fas fa-building-columns logo-icon"></i>-->
+<!--      <span class="logo-text">AdminHub</span>-->
+<!--      <span class="admin-badge">CMS</span>-->
+<!--    </div>-->
+<!--    <div class="user-controls" id="userControlsArea">-->
+<!--      &lt;!&ndash; dynamic user info: shows logged user name and logout link &ndash;&gt;-->
+<!--      <div class="user-info" id="userInfoBlock">-->
+<!--        <div class="user-avatar" id="avatarInitials">JD</div>-->
+<!--        <span class="user-name" id="displayUserName">John Doe</span>-->
+<!--      </div>-->
+<!--      <button class="logout-link" id="logoutButtonAdmin">-->
+<!--        <i class="fas fa-sign-out-alt"></i> Logout-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!-- ===== HEADER ===== -->
+<header class="admin-header">
   <div class="header-container">
     <div class="logo-area">
       <i class="fas fa-building-columns logo-icon"></i>
       <span class="logo-text">AdminHub</span>
       <span class="admin-badge">CMS</span>
     </div>
-    <div class="user-controls" id="userControlsArea">
-      <!-- dynamic user info: shows logged user name and logout link -->
-      <div class="user-info" id="userInfoBlock">
-        <div class="user-avatar" id="avatarInitials">JD</div>
-        <span class="user-name" id="displayUserName">John Doe</span>
+    <div class="user-controls">
+      <div class="user-info">
+        <div class="user-avatar">JD</div>
+        <span class="user-name">John Doe</span>
       </div>
-      <button class="logout-link" id="logoutButtonAdmin">
+      <button class="logout-link" id="logoutButton">
         <i class="fas fa-sign-out-alt"></i> Logout
       </button>
     </div>

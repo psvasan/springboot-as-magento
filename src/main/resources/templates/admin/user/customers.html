@@ -18,14 +18,30 @@
     <!-- MAIN: 90% container, sidebar 20% width (brown background) -->
     <div class="main-layout">
         <!-- SIDEBAR with brown background + navigation -->
-        <aside class="admin-sidebar" th:replace="~{admin/aside :: aside}"></aside>
+        <aside class="admin-sidebar">
+            <ul class="sidebar-nav">
+                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Users & Roles</a></li>
+                <li><a href="#"><i class="fas fa-chart-pie"></i> Analytics</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Site Settings</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-shield-alt"></i> Security</a></li>
+            </ul>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-footer-note">
+                <i class="fas fa-database"></i> v2.4.1 • Admin panel
+            </div>
+        </aside>
 
         <!-- MAIN CONTENT (flex:1 = remaining 80% width) -->
         <main class="admin-content">
             <div class="content-header">
                 <h1>Admin Dashboard</h1>
                 <p>Welcome back, <span id="greetingUserName">Administrator</span> — manage your platform from here.</p>
+                <h1>Welcome to the <span th:text="${area}">Area</span></h1>
+                <p>Logged in User Details (via Principal): <strong><span th:text="${username}">Admin User</span></strong></p>
                 <hr/>
+                <a href="/process-logout?type=admin">Logout of Admin Panel</a>
             </div>
 
             <!-- quick stats cards -->
